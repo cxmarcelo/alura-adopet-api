@@ -6,7 +6,6 @@ import br.com.mcb.adopet.model.TutorModel;
 
 public interface TutorRepository extends JpaRepository<TutorModel, Long> {
 
-	boolean existsByPhone(String phone);
-	boolean existsByEmail(String email);
+	boolean existsByPhoneOrEmail(String phone, String email);
 
 }

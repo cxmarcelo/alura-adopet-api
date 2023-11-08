@@ -9,36 +9,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.mcb.adopet.model.TutorModel;
-import br.com.mcb.adopet.repository.TutorRepository;
+import br.com.mcb.adopet.dto.TutorRegisterDto;
+import br.com.mcb.adopet.dto.TutorUpdateDto;
+import br.com.mcb.adopet.service.TutorService;
 import jakarta.validation.Valid;
+import jakarta.validation.ValidationException;
 
 @RestController
 @RequestMapping("/tutors")
 public class TutorController {
 
 	@Autowired
-	private TutorRepository repository;
+	private TutorService service;
 
 	@PostMapping
 	@Transactional
-	public ResponseEntity<String> register(@RequestBody @Valid TutorModel tutor) {
-		boolean phoneAlreadyRegistered = repository.existsByPhone(tutor.getPhone());
-		boolean emailAlreadyRegistered = repository.existsByEmail(tutor.getEmail());
-
-		if (phoneAlreadyRegistered || emailAlreadyRegistered) {
-			return ResponseEntity.badRequest().body("Dados já cadastrados para outro tutor!");
-		} else {
-			repository.save(tutor);
+	public ResponseEntity<String> register(@RequestBody @Valid TutorRegisterDto dto) {
+		try {
+			service.register(dto);
 			return ResponseEntity.ok().build();
+		} catch (ValidationException exception) {
+			return ResponseEntity.badRequest().body(exception.getMessage());
 		}
 	}
 
 	@PutMapping
 	@Transactional
-	public ResponseEntity<String> update(@RequestBody @Valid TutorModel tutor) {
-		repository.save(tutor);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<String> update(@RequestBody @Valid TutorUpdateDto dto) {
+		try {
+			service.atualizar(dto);
+			return ResponseEntity.ok().build();
+		} catch (ValidationException exception) {
+			return ResponseEntity.badRequest().body(exception.getMessage());
+		}
 	}
 
 }

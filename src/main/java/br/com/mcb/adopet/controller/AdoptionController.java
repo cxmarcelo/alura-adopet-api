@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.mcb.adopet.dto.AdoptionApprovalDto;
 import br.com.mcb.adopet.dto.AdoptionRejectionDto;
 import br.com.mcb.adopet.dto.AdoptionRequestDto;
-import br.com.mcb.adopet.service.AdocaoService;
+import br.com.mcb.adopet.service.AdoptionService;
 import jakarta.validation.Valid;
 import jakarta.validation.ValidationException;
 
@@ -21,7 +21,7 @@ import jakarta.validation.ValidationException;
 public class AdoptionController {
 
     @Autowired
-    private AdocaoService adoptionService;
+    private AdoptionService adoptionService;
 
     @PostMapping
     @Transactional

@@ -18,7 +18,7 @@ import br.com.mcb.adopet.repository.TutorRepository;
 import br.com.mcb.adopet.validations.AdoptionRequestValidation;
 
 @Service
-public class AdocaoService {
+public class AdoptionService {
 
 	@Autowired
 	private AdoptionRepository repository;

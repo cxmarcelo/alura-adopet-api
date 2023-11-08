@@ -5,6 +5,7 @@ import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import br.com.mcb.adopet.dto.ShelterRegisterDto;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,6 +29,12 @@ public class ShelterModel {
 	@OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JsonManagedReference("shelter_pets")
 	private List<PetModel> pets;
+
+	public ShelterModel(ShelterRegisterDto dto) {
+		this.name = dto.name();
+		this.phone = dto.phone();
+		this.email = dto.email();
+	}
 
 	@Override
 	public boolean equals(Object o) {

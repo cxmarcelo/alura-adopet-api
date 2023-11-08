@@ -3,6 +3,8 @@ package br.com.mcb.adopet.model;
 import java.util.List;
 import java.util.Objects;
 
+import br.com.mcb.adopet.dto.TutorRegisterDto;
+import br.com.mcb.adopet.dto.TutorUpdateDto;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,6 +32,21 @@ public class TutorModel {
 		if (o == null || getClass() != o.getClass()) return false;
 		TutorModel tutor = (TutorModel) o;
 		return Objects.equals(id, tutor.id);
+	}
+
+	public TutorModel() {
+	}
+
+	public TutorModel(TutorRegisterDto dto) {
+		this.name = dto.name();
+		this.phone = dto.phone();
+		this.email = dto.email();
+	}
+
+	public void update(TutorUpdateDto dto) {
+		this.name = dto.name();
+		this.phone = dto.phone();
+		this.email = dto.email();
 	}
 
 	@Override
